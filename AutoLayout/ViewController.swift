@@ -14,6 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         let metrics = ["labelHeight": 88]
+        var previous: UILabel!
         
         let label1 = UILabel()
         label1.translatesAutoresizingMaskIntoConstraints = false
@@ -48,11 +49,24 @@ class ViewController: UIViewController {
         
         let viewsDictionary = ["label1": label1, "label2": label2, "label3": label3, "label4": label4, "label5": label5]
         
-        for label in viewsDictionary.keys {
-            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[\(label)]|", options: [], metrics: nil, views: viewsDictionary))
+//        for label in viewsDictionary.keys {
+//            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[\(label)]|", options: [], metrics: nil, views: viewsDictionary))
+//        }
+//        
+//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(labelHeight@999)]-[label2(label1)]-[label3(label1)]-[label4(label1)]-[label5(label1)]-(>=10)-|", options: [], metrics: metrics, views: viewsDictionary))
+        
+        for label in [label1, label2, label3, label4, label5] {
+            label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+            label.heightAnchor.constraint(equalToConstant: 88).isActive = true
+            
+            if previous != nil {
+                label.topAnchor.constraint(equalTo: previous.bottomAnchor).isActive = true
+            }
+            
+            previous = label
         }
         
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(labelHeight@999)]-[label2(label1)]-[label3(label1)]-[label4(label1)]-[label5(label1)]-(>=10)-|", options: [], metrics: metrics, views: viewsDictionary))
+        
         
         
     }
